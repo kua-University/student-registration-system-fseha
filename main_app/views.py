@@ -9,9 +9,43 @@ from django.views.decorators.csrf import csrf_exempt
 from .EmailBackend import EmailBackend
 from .models import Attendance, Session, Subject
 
+import requests
+import json
+
 # Create your views here.
 
 
+def doPayment(request):
+      
+    url = "https://api.chapa.co/v1/transaction/initialize"
+    payload = {
+    "amount": "10",
+    "currency": "ETB",
+    "email": "abebech_bekele@gmail.com",
+    "first_name": "Bilen",
+    "last_name": "Gizachew",
+    "phone_number": "0912345678",
+    "tx_ref": "chewatatest-6669",
+    "callback_url": "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
+    "return_url": "https://www.google.com/",
+    "customization": {
+    "title": "Payment for my favourite merchant",
+    "description": "I love online payments"
+    }
+    }
+    headers = {
+    'Authorization': 'Bearer CHASECK-xxxxxxxxxxxxxxxx',
+    'Content-Type': 'application/json'
+    }
+      
+    response = requests.post(url, json=payload, headers=headers)
+    data = response.text
+    print(data)
+
+def pay(request):
+    return render(request, 'payment/payment.html')
+def home_page(request):
+    return render(request, 'main_app/home_page.html')
 def login_page(request):
     if request.user.is_authenticated:
         if request.user.user_type == '1':
