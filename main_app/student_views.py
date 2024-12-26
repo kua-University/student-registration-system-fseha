@@ -46,9 +46,12 @@ def student_home(request):
         'data_present': data_present,
         'data_absent': data_absent,
         'data_name': subject_name,
-        'page_title': 'Student Homepage'
+        'verified': student.verified,
+        'page_title': 'Student Homepage',
+        
 
     }
+    
     return render(request, 'student_template/home_content.html', context)
 
 

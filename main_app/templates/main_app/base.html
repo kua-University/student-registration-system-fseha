@@ -1,4 +1,5 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html>
 
@@ -17,14 +18,14 @@
         href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'%} ">
     <!-- iCheck -->
     <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css'%} ">
-    
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%} ">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css'%} ">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css'%} ">
-    
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     {% block custom_css %}
@@ -50,11 +51,11 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-          
- 
+
+
         {% include "main_app/sidebar_template.html" with user=user %}
 
-      
+
         <div class="content-wrapper">
 
             <!-- Content Wrapper. Contains page content -->
@@ -66,7 +67,7 @@
                             <h1 class="m-0 text-dark">{% block page_title %}{% endblock page_title %}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
-                            
+
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">{{ page_title }}</li>
@@ -78,29 +79,32 @@
             <!-- /.content-header -->
 
             <!-- Main content -->
-            
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-            <div class="form-group">
-                {% if messages %}
-                {% for message in messages  %}
-    
-                {% if message.tags == 'success' %}
-                <div class="alert alert-success">
-                    {{message}}
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {% if messages %}
+                                {% for message in messages %}
+
+                                {% if message.tags == 'success' %}
+                                <div class="alert alert-success">
+                                    {{message}}
+                                </div>
+                                {% else %}
+                                <div class="alert alert-danger">
+                                    {{message}}
+                                </div>
+                                {% endif %}
+
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {% else %}
-                <div class="alert alert-danger">
-                    {{message}}
-                </div>
-                {% endif %}
-    
-                {% endfor %}
-                {% endif %}
-            </div>
-            </div></div></div></section>
+            </section>
             {% block content %}
 
             {% endblock content %}
@@ -126,7 +130,7 @@
     <script src="{% static 'plugins/chart.js/Chart.min.js'%} "></script>
     <!-- Sparkline -->
     <script src="{% static 'plugins/sparklines/sparkline.js'%} "></script>
- 
+
     <!-- jQuery Knob Chart -->
     <script src="{% static 'plugins/jquery-knob/jquery.knob.min.js'%} "></script>
     <!-- daterangepicker -->

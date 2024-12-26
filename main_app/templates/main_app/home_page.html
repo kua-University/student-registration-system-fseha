@@ -1,4 +1,61 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>This is a home page</h1>
-<a href="{% url 'login_page' %}">Login</a>
-<a href="{% url 'add_student' %}">Register</a>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Management System</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg-image {
+            background-image: url("{% static 'img/background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
+</head>
+
+<body class="bg-white">
+
+
+    <header class="w-100 h-100 d-flex justify-content-center align-items-center bg-image">
+        <div class="container text-center text-white">
+            <div class="row">
+                <h1>Empowering learners to connect, grow, and succeed wherever you are, learning begins here.</h1>
+                <p><a href="{% url 'login_page' %}"
+                        class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover bg-white my-5 px-5 py-2 rounded-pill">Learn</a>
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- <div class=" container">
+                <ul class="nav bg-info">
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="/">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="/members">MEMBERS</a>
+                    </li>
+                </ul>
+            </div> -->
+
+    </div>
+
+</body>
+
+</html>

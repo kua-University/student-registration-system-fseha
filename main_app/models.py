@@ -78,6 +78,7 @@ class Student(models.Model):
     admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, null=True, blank=False)
     session = models.ForeignKey(Session, on_delete=models.DO_NOTHING, null=True)
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.admin.last_name + ", " + self.admin.first_name
@@ -101,6 +102,9 @@ class Subject(models.Model):
     def __str__(self):
         return self.name
 
+class Payment(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=5,decimal_places=2)
 
 class Attendance(models.Model):
     session = models.ForeignKey(Session, on_delete=models.DO_NOTHING)

@@ -11,6 +11,7 @@ from .models import Attendance, Session, Subject
 
 import requests
 import json
+from .models import Student
 
 # Create your views here.
 
@@ -21,11 +22,11 @@ def doPayment(request):
     payload = {
     "amount": "10",
     "currency": "ETB",
-    "email": "abebech_bekele@gmail.com",
+    "email": "fsehahagos23@gmail.com",
     "first_name": "Bilen",
     "last_name": "Gizachew",
     "phone_number": "0912345678",
-    "tx_ref": "chewatatest-6669",
+    "tx_ref": "negade-tx-12345678sss9",
     "callback_url": "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
     "return_url": "https://www.google.com/",
     "customization": {
@@ -34,13 +35,14 @@ def doPayment(request):
     }
     }
     headers = {
-    'Authorization': 'Bearer CHASECK-xxxxxxxxxxxxxxxx',
+    'Authorization': 'Bearer CHAPUBK_TEST-iT3q1JuetGSvs8i6dSblNDEDC5r9RozG',
     'Content-Type': 'application/json'
     }
       
     response = requests.post(url, json=payload, headers=headers)
     data = response.text
     print(data)
+    return render(request, 'payment/payment.html')
 
 def pay(request):
     return render(request, 'payment/payment.html')
@@ -122,6 +124,40 @@ def get_attendance(request):
     except Exception as e:
         return None
 
+
+@csrf_exempt  # To allow POST requests without CSRF token
+def payment_callback(request):
+    if request.method == "POST":
+        try:
+            # Parse the incoming data
+            data = json.loads(request.body)
+
+            # Extract required information from the payload
+            tx_ref = data.get("tx_ref")
+            status = data.get("status")
+            amount = data.get("amount")
+            currency = data.get("currency")
+            
+            # Log or process the data as needed
+            print(f"Transaction Ref: {tx_ref}, Status: {status}, Amount: {amount}, Currency: {currency}")
+
+            # Perform actions based on payment status
+            if status == "success":
+                # Mark the payment as successful in your database
+                print("message: Payment successful", status=200)
+                obj = Student.objects.get(id = id)
+                obj.verified = True
+                obj.save()
+                return JsonResponse({"message": "Payment successful"}, status=200)
+            else:
+                # Handle other statuses (e.g., failed, pending)
+                print("message: Payment failed or pending", status=400)
+                return JsonResponse({"message": "Payment failed or pending"}, status=400)
+
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)
 
 def showFirebaseJS(request):
     data = """
